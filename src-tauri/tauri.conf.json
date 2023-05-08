@@ -53,8 +53,8 @@
         "fullscreen": false,
         "resizable": true,
         "title": "prem-app",
-        "width": 800,
-        "height": 600
+        "minWidth": 1000,
+        "minHeight": 450
       }
     ]
   }
