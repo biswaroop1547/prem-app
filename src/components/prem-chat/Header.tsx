@@ -10,7 +10,7 @@ const Header = ({setRightSidebar, rightSidebar}: any) => {
       <div className="border-l border-light pl-6 flex items-center ml-auto max-w-max w-full absolute right-0">
         <button
           type="button"
-          className="bg-sonicsilver py-3 px-4 rounded-md text-lg font-proximaNova-regular text-white"
+          className="bg-sonicsilver hover:bg-[#6f6f6f] transition-color py-3 px-4 rounded-md text-lg font-proximaNova-regular text-white"
         >
           Share Chat
         </button>

@@ -197,6 +197,9 @@ header img {
 .sidebar-toggle__btn {
   @apply text-base font-proximaNova-regular dark:text-cultured mt-[-60px] ml-[25px];
 }
+.sidebar-toggle__btn button:hover img {
+  filter: invert(0) brightness(300%);
+}
 .sidebar-toggle  {
   @apply w-[70px];
 }
@@ -325,7 +328,7 @@ header img {
 }
 
 .dropdown {
-  @apply relative;
+  @apply relative cursor-pointer;
 }
 .dropdown-content {
   @apply rounded absolute right-0 z-10 left-0 w-full bg-[#303036];
