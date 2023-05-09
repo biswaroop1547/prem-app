@@ -1,4 +1,4 @@
-import { ChatCompletion } from "../types";
+import { ChatCompletion, ImageGeneration } from "../types";
 import api from "./api";
 
 export const fetchStatus = async () => {
@@ -12,6 +12,13 @@ export const fetchModels = async () => {
 export const chatCompletion = async (data: ChatCompletion) => {
   return api.post(
     `${import.meta.env.VITE_BACKEND_NEW_URL}/v1/chat/completions`,
+    data
+  );
+};
+
+export const generateImage = async (data: ImageGeneration) => {
+  return api.post(
+    `${import.meta.env.VITE_BACKEND_NEW_URL}/v1/images/generations`,
     data
   );
 };

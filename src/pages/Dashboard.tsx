@@ -116,7 +116,9 @@ function Dashboard() {
             title="Prem Michelangelo"
             description="The Best in Prompting"
           >
-            <DownloadButton />
+            <Link to="/prem-michelangelo">
+              <DownloadButton />
+            </Link>
           </AppCard>
           <AppCard
             icon={premAgentLogo}

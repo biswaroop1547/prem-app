@@ -1,23 +1,21 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchModels } from "../../shared/api";
-import usePremChatStore, { PremChatStore } from "../../shared/store/prem-chat";
-import { shallow } from "zustand/shallow";
 
 type Model = {
   id: string;
   name: string;
 };
 
-const ModelSelectionDropdown = () => {
-  const { model, setModel } = usePremChatStore(
-    (state) => ({ model: state.model, setModel: state.setModel }),
-    shallow
-  );
-  const { isLoading, data: response } = useQuery(["fetchModels"], fetchModels);
+type ModelSelectionDropdown = {
+  model: string;
+  onModelChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+};
 
-  const onModelChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setModel(event.target.value);
-  };
+const ModelSelectionDropdown = ({
+  model,
+  onModelChange,
+}: ModelSelectionDropdown) => {
+  const { data: response } = useQuery(["fetchModels"], fetchModels);
 
   return (
     <div className="custom-select">

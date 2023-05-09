@@ -18,7 +18,7 @@ export interface PremChatHistory {
   title: string;
   messages: Message[];
   timestamp: number;
-};
+}
 
 export type PremChatResponse = {
   chatMessages: Message[];
@@ -34,3 +34,10 @@ export interface PremChatHistoryNavigator extends PremChatHistory {
   next?: PremChatHistory;
   prev?: PremChatHistory;
 }
+
+export type ImageGeneration = {
+  prompt: string;
+  n?: number;
+  size?: string;
+  response_format?: string;
+};
