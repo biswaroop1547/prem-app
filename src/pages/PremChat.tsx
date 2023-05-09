@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import InputBox from "../components/prem-chat/InputBox";
 import ModelSelectionDropdown from "../components/prem-chat/ModelSelectionDropdown";
 import UserReply from "../shared/components/UserReply";
@@ -11,10 +11,11 @@ import Header from "../components/prem-chat/Header";
 import RightSidebar from "../components/prem-chat/RightSidebar";
 
 import usePremChatStore from "../shared/store/prem-chat";
+import Title from "../shared/components/Title";
+import { shallow } from "zustand/shallow";
 
 function PremChat() {
   const { chatId } = useParams();
-  const model = usePremChatStore((state) => state.model);
   const [rightSidebar, setRightSidebar] = useState(false);
   const chatMessageListRef = useRef<HTMLDivElement>(null);
 
@@ -30,9 +31,22 @@ function PremChat() {
 
   useEffect(() => {
     if (chatMessageListRef.current) {
-      chatMessageListRef.current.scrollTop = chatMessageListRef.current.scrollHeight;
+      chatMessageListRef.current.scrollTop =
+        chatMessageListRef.current.scrollHeight;
     }
   }, [chatMessages]);
+
+  const { model, setModel } = usePremChatStore(
+    (state) => ({ model: state.model, setModel: state.setModel }),
+    shallow
+  );
+
+  const onModelChange = useCallback(
+    (event: React.ChangeEvent<HTMLSelectElement>) => {
+      setModel(event.target.value);
+    },
+    [setModel]
+  );
 
   return (
     <section>
@@ -42,17 +56,24 @@ function PremChat() {
         </div>
         <div className="flex flex-1">
           <div className="bg-lines bg-darkjunglegreen relative h-full w-full">
-            <div className="main-content h-full z-10 relative max-h-full overflow-x-hidden scrollbar-none" ref={chatMessageListRef}>
-              <Header setRightSidebar={setRightSidebar} rightSidebar={rightSidebar}/>
+            <div
+              className="main-content h-full z-10 relative max-h-full overflow-x-hidden scrollbar-none"
+              ref={chatMessageListRef}
+            >
+              <Header
+                setRightSidebar={setRightSidebar}
+                rightSidebar={rightSidebar}
+              />
               <div className="z-10 relative mt-[40px] flex flex-col prem-chat-body">
-                <h1 className="text-antiflashwhite text-3xl text-center">
-                  Prem Chat
-                </h1>
+                <Title>Prem Chat</Title>
                 <div className="prem-chat p-4 pb-7 md:w-[55%] w-[85%] mx-auto">
                   <p className="text-spanishgray text-base font-proximaNova-regular mb-[6px]">
                     Model
                   </p>
-                  <ModelSelectionDropdown />
+                  <ModelSelectionDropdown
+                    model={model}
+                    onModelChange={onModelChange}
+                  />
                   {isError && <div>Something went wrong</div>}
                 </div>
                 <div className="md:w-[65%] w-[90%] mx-auto mt-8">
@@ -67,7 +88,7 @@ function PremChat() {
                   ))}
                 </div>
                 <div className="prem-chat-bottom border-transparent bg-gradient-to-b from-transparent via-white to-white dark:via-[#20232B] dark:to-[#20232B]">
-                  <div className="md:w-[55%] w-[85%] mx-auto" >
+                  <div className="md:w-[55%] w-[85%] mx-auto">
                     {chatMessages.length > 0 && !isLoading && !isError && (
                       <div>
                         <RegenerateButton onRgenerateClick={onRegenerate} />
@@ -99,7 +120,7 @@ function PremChat() {
           </div>
         </div>
         <div>
-         {rightSidebar && <RightSidebar setRightSidebar={setRightSidebar}/>}
+          {rightSidebar && <RightSidebar setRightSidebar={setRightSidebar} />}
         </div>
       </div>
     </section>
