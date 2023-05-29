@@ -12,6 +12,7 @@ const ServiceCard = ({
   icon,
   status,
   serviceId,
+  interfaces
 }: ServiceCardProps) => {
   const queryClient = useQueryClient();
 
@@ -34,6 +35,8 @@ const ServiceCard = ({
           refetch={refetch}
           serviceId={serviceId}
           status={status}
+          interfaces={interfaces}
+          isDetailView={false}
         />
       </div>
       <h3>{title}</h3>

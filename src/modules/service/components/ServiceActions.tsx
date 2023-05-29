@@ -9,19 +9,21 @@ const ServiceActions = ({
   serviceId,
   refetch,
   children,
+  interfaces,
+  isDetailView
 }: ServiceActionsProps) => {
   return (
     <div className="flex gap-4 md:ml-auto">
       {children}
       {status === "running" && (
-        <RunningServiceState serviceId={serviceId} refetch={refetch} />
+        <RunningServiceState serviceId={serviceId} interfaces={interfaces} isDetailView={isDetailView} refetch={refetch} />
       )}
       {status === "stopped" && (
-        <StoppedServiceState serviceId={serviceId} refetch={refetch} />
+        <StoppedServiceState serviceId={serviceId} interfaces={interfaces} isDetailView={isDetailView} refetch={refetch} />
       )}
 
       {status === "not_downloaded" && (
-        <NotDownloadedServiceState serviceId={serviceId} refetch={refetch} />
+        <NotDownloadedServiceState serviceId={serviceId} interfaces={interfaces} isDetailView={isDetailView} refetch={refetch} />
       )}
 
       {[

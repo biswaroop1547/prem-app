@@ -6,10 +6,13 @@ import startService from "../api/startService";
 import PlayIcon from "shared/components/PlayIcon";
 import DeleteIcon from "shared/components/DeleteIcon";
 import { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import WarningModal from "./WarningModal";
 
-const StoppedServiceState = ({ serviceId, refetch }: ServiceStateProps) => {
+const StoppedServiceState = ({ serviceId, interfaces, isDetailView, refetch }: ServiceStateProps) => {
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
+
+  const navigate = useNavigate();
 
   const { mutate: deleteMutate, isLoading: deleteLoading } = useMutation(
     (id: string) => deleteService(id)
@@ -39,6 +42,14 @@ const StoppedServiceState = ({ serviceId, refetch }: ServiceStateProps) => {
     });
   };
 
+  const onPlayButtonClick = () => {
+    if (interfaces.includes("chat")) {
+      navigate(`/prem-chat/${serviceId}`);
+    } else {
+      alert("Show Documentation")
+    }
+  };
+
   const onCancelClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setOpenDeleteModal(false);
@@ -50,12 +61,15 @@ const StoppedServiceState = ({ serviceId, refetch }: ServiceStateProps) => {
 
   return (
     <>
-      <button onClick={onStart}>
-        <PlayIcon />
+      <button className="bg-brightgray rounded-3xl px-6 py-[10px] text-sm" onClick={onPlayButtonClick}>
+        Open &nbsp; &#8594;
       </button>
+      
+      {isDetailView &&
       <button onClick={onDelete}>
         <DeleteIcon />
-      </button>
+      </button>}
+      
       {openDeleteModal && (
         <WarningModal
           icon={<DeleteIcon />}

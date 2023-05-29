@@ -31,6 +31,8 @@ const ServiceDetail = () => {
   const onPlayButtonClick = () => {
     if (service.interfaces.includes("chat")) {
       navigate(`/prem-chat/${serviceId}`);
+    } else {
+      alert("Show Documentation")
     }
   };
 
@@ -48,15 +50,9 @@ const ServiceDetail = () => {
           serviceId={serviceId!}
           status={status}
           refetch={refetchServices}
+          interfaces={service.interfaces}
+          isDetailView={true}
         >
-          {status === "running" && (
-            <button
-              className="bg-brightgray rounded-3xl px-6 py-[10px] text-sm"
-              onClick={onPlayButtonClick}
-            >
-              Play &nbsp; &#8594;
-            </button>
-          )}
         </ServiceActions>
       </div>
       <div className="service-detail">

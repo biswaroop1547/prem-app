@@ -74,6 +74,8 @@ export type Message = {
 
 export type ServiceStateProps = {
   serviceId: string;
+  interfaces: string[];
+  isDetailView: boolean;
   refetch: () => void;
 };
 
@@ -92,11 +94,14 @@ export type ServiceCardProps = {
   icon: string;
   status: ServiceStatus;
   serviceId: string;
+  interfaces: string[];
 };
 
 export type ServiceActionsProps = PropsWithChildren<{
   status: ServiceStatus;
   serviceId: string;
+  interfaces: string[];
+  isDetailView: boolean;
   refetch: () => void;
 }>;
 
