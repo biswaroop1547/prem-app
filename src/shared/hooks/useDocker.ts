@@ -10,13 +10,16 @@ const useDocker = () => {
   const handleCheckIsDockerRunning = useCallback(async () => {
     try {
       const dockerRunning = await checkIsDockerRunning();
+      console.log(dockerRunning);
       setIsDockerRunning(dockerRunning);
       if (!dockerRunning) return;
       const containerRunning = await checkIsContainerRunning();
+      console.log(containerRunning);
       setIsContainerRunning(containerRunning);
       if (containerRunning) return; 
       await runDockerContainer();
     } catch (error) {
+      console.log(error);
       throw error;
     }
   }, [setIsDockerRunning, setIsContainerRunning]);
