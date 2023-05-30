@@ -28,6 +28,7 @@ const ServicesRunning = () => {
             title={service.name}
             status="running"
             serviceId={service.id}
+            interfaces={service.interfaces}
           />
         ))}
       </div>
